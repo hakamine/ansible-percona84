@@ -1,0 +1,19 @@
+---
+- name: Verify
+  hosts: molecule
+  gather_facts: true
+  tasks:
+    - name: Get MySQL service status
+      ansible.builtin.systemd_service:
+        name: mysql
+      register: service_info
+      changed_when: false
+      retries: 5
+      delay: 10
+      until: service_info.status.ActiveState == "active"
+
+    - name: Assert that MySQL is active
+      ansible.builtin.assert:
+        that:
+          - service_info['status']['ActiveState'] == "active"
+        fail_msg: "MySQL service is not active"

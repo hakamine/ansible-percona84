@@ -1,0 +1,33 @@
+---
+ansible:
+  cfg:
+    defaults:
+      deprecation_warnings: false
+  # the following is needed to be able to import the role in molecule scenarios
+  env:
+    ANSIBLE_ROLES_PATH: "${MOLECULE_PROJECT_DIRECTORY}/.."
+  executor:
+    args:
+      ansible_playbook:
+        - --inventory=inventory/
+  playbooks:
+    destroy: ../resources/playbooks/destroy.yml
+    create: ../resources/playbooks/create.yml
+    converge: ../resources/playbooks/converge.yml
+    verify: ../resources/playbooks/verify.yml
+
+dependency:
+  name: galaxy
+  options:
+    requirements-file: "${MOLECULE_SCENARIO_DIRECTORY}/requirements.yml"
+
+scenario:
+  test_sequence:
+    - dependency
+    - destroy
+    - create
+    - converge
+    - idempotence
+    - verify
+    - cleanup
+    - destroy
