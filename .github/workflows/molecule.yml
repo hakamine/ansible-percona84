@@ -1,0 +1,50 @@
+name: Molecule Test
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      # Run molecule tests only if role or molecule files change
+      - "defaults/**"
+      - "handlers/**"
+      - "molecule/**"
+      - "tasks/**"
+      - "templates/**"
+  pull_request:
+    paths:
+      # Run molecule tests only if role or molecule files change
+      - "defaults/**"
+      - "handlers/**"
+      - "molecule/**"
+      - "tasks/**"
+      - "templates/**"
+  workflow_dispatch:
+
+jobs:
+  molecule:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario:
+          - ubuntu
+          # - redhat
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v2
+
+      - name: Install dependencies
+        run: uv sync --group dev
+
+      - name: Run molecule test
+        run: uv run molecule test -s ${{ matrix.scenario }} --report --command-borders

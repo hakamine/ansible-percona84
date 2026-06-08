@@ -1,0 +1,5 @@
+- name: Ensure service is started and enabled
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: true

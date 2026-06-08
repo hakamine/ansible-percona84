@@ -1,0 +1,10 @@
+---
+all:
+  children:
+    molecule:
+      hosts:
+        molecule-ubuntu2404:
+          ansible_connection: containers.podman.podman
+          container_image: docker.io/hakamine/ubuntu2404-init:main
+          container_log_driver: json-file
+          container_systemd: true
