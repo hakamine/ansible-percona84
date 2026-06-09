@@ -7,6 +7,18 @@ resolution-markers = [
 ]
 
 [[package]]
+name = "ansible"
+version = "14.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "ansible-core" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/0b/1a/b62aa6eff04f17fb377ad7b8db89bdce71635b55ba2ec14d6f812791ccea/ansible-14.0.0.tar.gz", hash = "sha256:03cdb9477b1ebe930c9212a12d0926c7cd46b1877c504709157b8cd7876fc083", size = 49067110, upload-time = "2026-06-02T15:24:31.584Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/00/d4/ef0cb16757a0638de52b43a5e8edfd16e043b43b1db4ed53815aec67443e/ansible-14.0.0-py3-none-any.whl", hash = "sha256:937368ebb337973ddce0711b3c3e3b72ad9c27520ea03ad4628c08ca6c13adec", size = 49058588, upload-time = "2026-06-02T15:24:25.923Z" },
+]
+
+[[package]]
 name = "ansible-builder"
 version = "3.1.1"
 source = { registry = "https://pypi.org/simple" }
@@ -104,25 +116,6 @@ wheels = [
 ]
 
 [[package]]
-name = "ansible-percona84"
-version = "0.1.0"
-source = { virtual = "." }
-
-[package.dev-dependencies]
-dev = [
-    { name = "ansible-dev-tools" },
-    { name = "prek" },
-]
-
-[package.metadata]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "ansible-dev-tools", specifier = ">=26.4.6" },
-    { name = "prek", specifier = ">=0.4.4" },
-]
-
-[[package]]
 name = "ansible-lint"
 version = "26.4.0"
 source = { registry = "https://pypi.org/simple" }
@@ -168,6 +161,27 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/28/75/1d3a5f9d20ef9fa12f6d0a83e8055f38e586944e260ff40c9b157f195e77/ansible_navigator-26.4.0.tar.gz", hash = "sha256:1690c55b236796ddbcc001ba3a0263c2f2be50c0840f21f83fd7d0fade49f054", size = 394410, upload-time = "2026-04-06T09:02:09.763Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/01/b6/4d8a944e3db20d745bb96227f366d507709ed7095bffd15a5104d2a52d0b/ansible_navigator-26.4.0-py3-none-any.whl", hash = "sha256:62bdf3fc1b3c06a11201e915bbd98dbe7469b1f1f4bfc50c638aa92485368ff1", size = 304806, upload-time = "2026-04-06T09:02:08.105Z" },
+]
+
+[[package]]
+name = "ansible-percona84"
+version = "0.1.0"
+source = { virtual = "." }
+
+[package.dev-dependencies]
+dev = [
+    { name = "ansible" },
+    { name = "ansible-dev-tools" },
+    { name = "prek" },
+]
+
+[package.metadata]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "ansible", specifier = ">=14.0.0" },
+    { name = "ansible-dev-tools", specifier = ">=26.4.6" },
+    { name = "prek", specifier = ">=0.4.4" },
 ]
 
 [[package]]

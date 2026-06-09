@@ -9,3 +9,11 @@
 - name: Import configuration tasks
   ansible.builtin.import_tasks:
     file: configure.yml
+
+- name: Import databases creation tasks
+  ansible.builtin.import_tasks:
+    file: databases.yml
+
+- name: Import users creation tasks
+  ansible.builtin.import_tasks:
+    file: users.yml

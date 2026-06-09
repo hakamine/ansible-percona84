@@ -1,0 +1,19 @@
+# NOTES:
+# - use of the caching2_sha2_password plugin is recommended
+#   (default in MySQL>=8.0.4). mysql_native_password plugin is deprecated
+# - For caching_sha2_password use parameter "plugin_auth_string:" to set the password.
+# - Note that mysql_user "password:" parameter is for the old
+#   mysql_native_password plugin.
+
+- name: "Make sure the MySQL users are present"
+  ansible.mysql.mysql_user:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    name: "{{ item.name }}"
+    plugin: "{{ item.plugin }}"
+    plugin_auth_string: "{{ item.plugin_auth_string | default(omit) }}"
+    salt: "{{ item.salt | default(omit) }}"
+    password: "{{ item.password | default(omit) }}"
+    priv: "{{ item.priv }}"
+    host: "{{ item.host }}"
+  loop: "{{ mysql_users }}"
+  no_log: "{{ mysql_user_ansible_no_log }}"

@@ -1,0 +1,7 @@
+mysql_user_ansible_no_log: false
+
+mysql_config_include_files: []
+
+mysql_databases: []
+
+mysql_users: []
