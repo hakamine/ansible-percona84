@@ -20,4 +20,17 @@
 # before continuing with the rest of the playbook (database/user creation, etc).
 
 - name: Force service restart to apply config changes
-  ansible.builtin.meta: flush_handlers
+#  ansible.builtin.meta: flush_handlers
+  ansible.builtin.service:
+    name: mysql
+    state: restarted
+  failed_when: false          # DEBUG
+
+- name: Get service status (DEBUG)
+  ansible.builtin.command: journalctl -xeu mysql.service
+  register: service_status
+  changed_when: false
+
+- name: Debug service status (DEBUG)
+  ansible.builtin.debug:
+    var: service_status.stdout_lines
