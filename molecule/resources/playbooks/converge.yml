@@ -3,9 +3,22 @@
   hosts: molecule
   gather_facts: true
   vars:
-    es_version: 8.19.15
-    es_tmpdir: /var/lib/elasticsearch/tmp
-    es_tmpdir_create: true
+    mysql_config_include_dir: /etc/mysql/mysql.conf.d
+    mysql_config_include_files:
+      - src: "templates/etc/mysql/mysql.conf.d/z-config-ansible-percona84.cnf"
+        force: true
+    mysql_zconfig_max_connections: 500
+    mysql_databases:
+      - name: "DB1"
+        collation: "utf8mb4_0900_ai_ci"
+        encoding: "utf8mb4"
+    mysql_users:
+      - name: "user1"
+        plugin: "caching_sha2_password"
+        plugin_auth_string: "user1PASS.#1"
+        salt: "1234567890abcdefghij"    # Salt length must be 20 characters
+        priv: "DB1.*:ALL"
+        host: "localhost"
   tasks:
     - name: Include the role being tested
       ansible.builtin.import_role:

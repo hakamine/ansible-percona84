@@ -1,5 +1,23 @@
+- name: Copy my.cnf override files into include directory.
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ [mysql_config_include_dir, item.src | basename] | path_join }}"
+    owner: root
+    group: root
+    mode: "0644"
+    force: "{{ item.force | default(false) }}"
+    backup: true
+  loop: "{{ mysql_config_include_files }}"
+  notify: Restart service
+
 - name: Ensure service is started and enabled
   ansible.builtin.service:
     name: mysql
     state: started
     enabled: true
+
+# Force a mysql restart here to ensure that the new configuration is loaded
+# before continuing with the rest of the playbook (database/user creation, etc).
+
+- name: Force service restart to apply config changes
+  ansible.builtin.meta: flush_handlers

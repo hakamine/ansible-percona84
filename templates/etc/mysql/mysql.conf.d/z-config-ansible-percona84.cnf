@@ -1,0 +1,45 @@
+# {{ ansible_managed }}
+# (Template from ansible-percona84 role)
+
+[mysqld]
+
+{% if mysql_zconfig_sql_mode is defined %}
+sql_mode = {{ mysql_zconfig_sql_mode }}
+{% endif %}
+{% if mysql_zconfig_default_authentication_plugin is defined %}
+default_authentication_plugin = {{ mysql_zconfig_default_authentication_plugin }}
+{% endif %}
+{% if mysql_zconfig_bind_address is defined %}
+bind_address = {{ mysql_zconfig_bind_address }}
+{% endif %}
+
+{% if mysql_zconfig_innodb_buffer_pool_size is defined %}
+innodb_buffer_pool_size = {{ mysql_zconfig_innodb_buffer_pool_size }}
+{% endif %}
+{% if mysql_zconfig_innodb_log_file_size is defined %}
+# Reminder:
+# -  From mysql 8.0.30, innodb_log_file_size and innodb_log_files_in_group
+#   variables are deprecated in favour of innodb_redo_log_capacity
+#   (https://dev.mysql.com/doc/refman/8.0/en/optimizing-innodb-logging.html)
+innodb_log_file_size = {{ mysql_zconfig_innodb_log_file_size }}
+{% endif %}
+{% if mysql_zconfig_innodb_redo_log_capacity is defined %}
+# Reminder:
+# -  From mysql 8.0.30, innodb_log_file_size and innodb_log_files_in_group
+#   variables are deprecated in favour of innodb_redo_log_capacity
+#   (https://dev.mysql.com/doc/refman/8.0/en/optimizing-innodb-logging.html)
+innodb_redo_log_capacity = {{ mysql_zconfig_innodb_redo_log_capacity }}
+{% endif %}
+{% if mysql_zconfig_innodb_log_buffer_size is defined %}
+innodb_log_buffer_size = {{ mysql_zconfig_innodb_log_buffer_size }}
+{% endif %}
+
+{% if mysql_zconfig_sort_buffer_size is defined %}
+sort_buffer_size = {{ mysql_zconfig_sort_buffer_size }}
+{% endif %}
+{% if mysql_zconfig_max_allowed_packet is defined %}
+max_allowed_packet = {{ mysql_zconfig_max_allowed_packet }}
+{% endif %}
+{% if mysql_zconfig_max_connections is defined %}
+max_connections = {{ mysql_zconfig_max_connections }}
+{% endif %}
